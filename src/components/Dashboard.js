@@ -10,7 +10,7 @@ import {
     updateClient,
     updateVoiture,
 } from "../services/apiService";
-import { Modal, Button, Form, Table, Card, Row, Col, Container } from "react-bootstrap";
+import { Modal, Button, Form, Table, Card, Row, Col, Container, ListGroup } from "react-bootstrap";
 import "../components/Dashboard.css";
 
 function Dashboard() {
@@ -179,15 +179,22 @@ function Dashboard() {
                             >
                                 Search
                             </Button>
-                            <ul>
+                            <ListGroup className="mt-3">
                                 {filteredVoitures.map((voiture) => (
-                                    <li key={voiture.id}>
-                                        {voiture.marque} - {voiture.model} ({voiture.matricule})
-                                    </li>
+                                    <ListGroup.Item key={voiture.id} className="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>{voiture.marque}</strong> - {voiture.model}
+                                            <br />
+                                            <small className="text-muted">Matricule: {voiture.matricule}</small>
+                                        </div>
+                                    </ListGroup.Item>
                                 ))}
-                            </ul>
+                            </ListGroup>
                         </Card.Body>
                     </Card>
+
+                </Col>
+                <Col md={6} className="dashboard-card">
                     <Card>
                         <Card.Header className="client-card-header">
                             <h4>Clients</h4>
@@ -228,7 +235,7 @@ function Dashboard() {
                                 </tbody>
                             </Table>
                             <Button
-                                variant="secondary"
+                                variant="info"
                                 className="add-client-btn"
                                 onClick={() => {
                                     setShowClientModal(true);
@@ -285,7 +292,7 @@ function Dashboard() {
                                 </tbody>
                             </Table>
                             <Button
-                                variant="success"
+                                variant="info"
                                 className="add-voiture-btn"
                                 onClick={() => {
                                     setShowVoitureModal(true);
@@ -346,7 +353,7 @@ function Dashboard() {
             {/* Voiture Modal */}
             <Modal show={showVoitureModal} onHide={() => setShowVoitureModal(false)} className="custom-modal">
                 <Modal.Header closeButton>
-                    <Modal.Title>{isEditingVoiture ? "Edit Voiture" : "Add Voiture"}</Modal.Title>
+                    <Modal.Title>{isEditingVoiture ? "Edit Car" : "Add car"}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -404,7 +411,7 @@ function Dashboard() {
                         Close
                     </Button>
                     <Button variant="success" onClick={handleAddOrUpdateVoiture}>
-                        {isEditingVoiture ? "Save Changes" : "Add Voiture"}
+                        {isEditingVoiture ? "Save Changes" : "Add car"}
                     </Button>
                 </Modal.Footer>
             </Modal>
